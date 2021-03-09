@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsx小练习</title>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script src="babel.min.js"></script>
+</head>
+<body>
+	<div id="test"></div>
+	
+	
+
+	<script type="text/babel" >
+		class Weather extends React.Component{
+			constructor(props){
+				
+				super(props)
+				
+				this.state={isHot:true}
+				this.changeWeather=this.changeWeather.bind(this)
+			}
+			render(){
+				
+               
+				return <h2 onClick={this.changeWeather}>今天的天气是{this.state.isHot?'晴天':'下雨'}</h2>
+			}
+			changeWeather(){
+				
+                let {isHot}=this.state
+				this.setState({isHot:!isHot})
+				
+			}
+		}
+
+		ReactDOM.render(<Weather/>,document.getElementById('test'))
+	</script>
+</body>
+</html>
