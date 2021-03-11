@@ -18,10 +18,7 @@
 	<script type="text/babel" >
 		class Person extends React.Component{
 
-			Person.propTypes={
-
-}
-
+			
 			render(){
              
 				return (<ul>
@@ -30,9 +27,18 @@
 				<li>性别：{this.props.sex}</li>
 					</ul>)
 			}
+	}
 
-			
-		}
+	Person.propTypes={
+		name:PropTypes.string.isRequired,
+		age:PropTypes.number,
+		sex:PropTypes.string
+	}
+
+	Person.defaultProps={
+		name:'zdw',
+		age:20
+	}
 
 		ReactDOM.render(<Person name='jerry' age={18} sex='女' />,document.getElementById('test1'))
 		ReactDOM.render(<Person name='tom' age={19} sex='男' />,document.getElementById('test2'))
