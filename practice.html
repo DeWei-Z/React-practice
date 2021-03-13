@@ -7,49 +7,51 @@
 	<script src="react-dom.development.js"></script>
 	<script src="babel.min.js"></script>
 	<script src="prop-types.js"></script>
+	<style>
+	.list{
+		width: 200px;
+		height: 150px;
+		background-color: skyblue;
+		overflow: auto;
+	}
+	.news{
+		height: 30px;
+	}
+</style>
 </head>
 <body>
-	<div id="test1"></div>
-	<div id="test2"></div>
-	<div id="test3"></div>
+	<div id="test"></div>
+	
 	
 	
 
 	<script type="text/babel" >
-		class Life extends React.Component{
-		state={opacity:1}
+		class List extends React.Component{
 
-		render(){
-			
+			state={arr:[]}
+            componentDidMount(){
+				setInterval(()=>{
+					const {arr}=this.state
+					const news='新闻'+(arr.length+1)
+					
+					this.setState({arr:[news,...arr]})
 
-			return (<div>
-				<h1 style={{opacity:this.state.opacity}}>生命周期</h1>
-				<button onClick={this.death}>不活了</button>
-				</div>)
+				},1000)
+			}
+			render(){
+
+				return (<div className='list'>
+					{
+                       this.state.arr.map((n,index)=>{
+                                return <div key={index} className="news">{n}</div>
+					   })
+					}
+					</div>)
+			}
 		}
-
-		componentDidMount(){
-			this.timer=setInterval(()=>{
-
-				let {opacity}=this.state
-				opacity-=0.1
-				if(opacity<=0)opacity=1;
-				this.setState({opacity:opacity})
-			},200)
-
-		}
-
-		componentWillUnmount(){
-			clearInterval(this.timer)
-		}
-
-		death=()=>{
-		ReactDOM.unmountComponentAtNode(document.getElementById('test'))
-	}
-	}
 
 	
-		ReactDOM.render(<Life/>,document.getElementById('test'))
+		ReactDOM.render(<List/>,document.getElementById('test'))
 	</script>
 </body>
 </html>
