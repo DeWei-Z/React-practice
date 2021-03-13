@@ -16,41 +16,40 @@
 	
 
 	<script type="text/babel" >
-		class Login extends React.Component{
-			state={
-				username:'',
-				password:''
-			}
+		class Life extends React.Component{
+		state={opacity:1}
 
-			render(){
+		render(){
+			
 
-				return (<form action='http://www.baidu.com' onSubmit={this.handle}>
-					用户<input onChange={this.save('username')} type='test' name='username' />
-					密码<input onChange={this.save('password')} type='password' name='password' />
-					<button>登录</button>
-					</form>)
-			}
+			return (<div>
+				<h1 style={{opacity:this.state.opacity}}>生命周期</h1>
+				<button onClick={this.death}>不活了</button>
+				</div>)
+		}
 
-			save=(data)=>{
-				
-				return (e)=>{
-                    this.setState({[data]:e.target.value})
+		componentDidMount(){
+			this.timer=setInterval(()=>{
 
-
-				}
-				
-			}
-            
-			handle=(e)=>{
-				e.preventDefault()
-				
-				console.log(`${this.username.value}`)
-
-			}
+				let {opacity}=this.state
+				opacity-=0.1
+				if(opacity<=0)opacity=1;
+				this.setState({opacity:opacity})
+			},200)
 
 		}
 
-		ReactDOM.render(<Login/>,document.getElementById('test'))
+		componentWillUnmount(){
+			clearInterval(this.timer)
+		}
+
+		death=()=>{
+		ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+	}
+	}
+
+	
+		ReactDOM.render(<Life/>,document.getElementById('test'))
 	</script>
 </body>
 </html>
